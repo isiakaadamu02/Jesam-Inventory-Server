@@ -1,7 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '../generated/prisma/client.js';
 import fs from "fs";
 import path from "path";
-const prisma = new PrismaClient();
+import "dotenv/config";
+import { fileURLToPath } from "url";
+
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
+// const prisma = new PrismaClient();
 
 async function deleteAllData(orderedFileNames: string[]) {
   const modelNames = orderedFileNames.map((fileName) => {
@@ -23,18 +30,32 @@ async function deleteAllData(orderedFileNames: string[]) {
 }
 
 async function main() {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
   const dataDirectory = path.join(__dirname, "seedData");
 
+  // const deleteOrder = [
+  //   "expenseByCategory.json",
+  //   "expenses.json",
+  //   "salesSummary.json",
+  //   "purchaseSummary.json",
+  //   "purchases.json",
+  //   "sales.json",
+  //   "expenseSummary.json",
+  //   "users.json",
+  //   "products.json",
+  // ];
+
   const orderedFileNames = [
-    "products.json",
-    "expenseSummary.json",
-    "sales.json",
-    "salesSummary.json",
-    "purchases.json",
-    "purchaseSummary.json",
-    "users.json",
-    "expenses.json",
-    "expenseByCategory.json",
+     "products.json",
+  "users.json",
+  "expenseSummary.json",
+  "sales.json",
+  "purchases.json",
+  "purchaseSummary.json",
+  "salesSummary.json",
+  "expenses.json",
+  "expenseByCategory.json",
   ];
 
   await deleteAllData(orderedFileNames);
