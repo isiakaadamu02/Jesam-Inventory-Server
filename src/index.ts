@@ -5,6 +5,7 @@ import cors from "cors"
 import helmet from "helmet"
 import morgan from "morgan"
 import dashboardRoutes from "./routes/dashboardRoutes.js"
+import productRoutes from "./routes/productRoutes.js"
 
 // CONFIGURATIONS //
 dotenv.config();  //database setup
@@ -21,6 +22,7 @@ app.use(cors());
 
 // ROUTE IMPORTS //
 app.use("/dashboard", dashboardRoutes)  // http://localhost:8000/dashboard
+app.use("/products", productRoutes)
 
 // SERVER //
 const port = process.env.PORT || 3001;
