@@ -5,6 +5,9 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import expenseRoutes from "./routes/expenseRoutes.js";
 // CONFIGURATIONS //
 dotenv.config(); //database setup
 const app = express();
@@ -17,6 +20,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 // ROUTE IMPORTS //
 app.use("/dashboard", dashboardRoutes); // http://localhost:8000/dashboard
+app.use("/products", productRoutes);
+app.use("/users", userRoutes);
+app.use("/expenses", expenseRoutes);
 // SERVER //
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

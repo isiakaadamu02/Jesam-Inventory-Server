@@ -37,14 +37,22 @@ export const getProducts = async ( req: Request, res: Response): Promise<void> =
 
 export const createProduct = async ( req: Request, res: Response): Promise<void> => {
     try {
+        const prisma = getPrisma();
         const {productId, name, price, rating, stockQuantity} = req.body;
+
+        // Build image URL if a file was uploaded
+        const imageUrl = req.file
+        ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`
+        : null;
+
         const product = await prisma.products.create({
             data: {
                 productId, 
                 name, 
                 price, 
                 rating, 
-                stockQuantity
+                stockQuantity,
+                imageUrl,
             }
         })
         res.json(product);

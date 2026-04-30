@@ -8,6 +8,7 @@ import dashboardRoutes from "./routes/dashboardRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import expenseRoutes from "./routes/expenseRoutes.js"
+import path from "path"
 
 // CONFIGURATIONS //
 dotenv.config();  //database setup
@@ -21,6 +22,8 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+
+app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
 
 // ROUTE IMPORTS //
 app.use("/dashboard", dashboardRoutes)  // http://localhost:8000/dashboard

@@ -1,5 +1,6 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../../generated/prisma/client.js";
+// Lazy singleton - created on first request, not at module load time
 let prisma;
 function getPrisma() {
     if (!prisma) {
